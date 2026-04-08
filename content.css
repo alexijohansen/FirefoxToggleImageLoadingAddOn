@@ -27,11 +27,20 @@ html.extension-images-blocked iframe[src*="dailymotion.com"],
 html.extension-images-blocked iframe[allow*="autoplay"], /* Broad catch for video ads */
 
 /* Site-Specific News Video Components (like The Guardian) */
-html.extension-images-blocked gu-island[name*="Video"],
-html.extension-images-blocked gu-island[name*="Youtube"],
+html.extension-images-blocked gu-island[name*="Video" i],
+html.extension-images-blocked gu-island[name*="Youtube" i],
 html.extension-images-blocked .youtube-media-atom,
-html.extension-images-blocked [class*="video-container"],
-html.extension-images-blocked [class*="video-player"] {
+html.extension-images-blocked [data-component="youtube-atom"],
+html.extension-images-blocked [data-component="video-atom"],
+html.extension-images-blocked figure[data-spacefinder-type="video"],
+html.extension-images-blocked figure[data-component="video"],
+html.extension-images-blocked [class*="video-container" i],
+html.extension-images-blocked [class*="video-player" i],
+html.extension-images-blocked iframe[title*="video" i],
+html.extension-images-blocked iframe[title*="youtube" i],
+html.extension-images-blocked iframe[title*="player" i],
+html.extension-images-blocked object,
+html.extension-images-blocked embed {
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;

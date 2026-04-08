@@ -1,38 +1,38 @@
 /* 
   content.css is injected into every webpage.
-  It works in tandem with content.js to apply dynamic visual hiding and sanitize broken images.
+  It works in tandem with content.js to apply dynamic visual hiding.
 */
 
-/* 
-  --- LAYOUT PRESERVATION FIX ---
-  Firefox specific pseudo-class to target images that were successfully intercepted and blocked 
-  by our network rule in background.js. 
-  Instead of shrinking the DOM elements and causing the whole page layout to shift erratically, 
-  we just make the broken image invisible (`opacity: 0`). The empty space is preserved!
-*/
+/* LAYOUT PRESERVATION FIX for Network Blocked Images */
 img:-moz-broken {
   opacity: 0 !important;
 }
-
-/* Fallback: Makes standard broken image alt-text transparent so you don't see ugly text snippets */
 img {
   color: transparent !important; 
 }
 
+/* AGGRESSIVE VISUAL HIDING */
+html.extension-images-blocked img,               
+html.extension-images-blocked picture,           
+html.extension-images-blocked video,             
+html.extension-images-blocked canvas,            
+html.extension-images-blocked svg,               
+html.extension-images-blocked [style*="background-image"],
 
-/* 
-  --- AGGRESSIVE VISUAL HIDING ---
-  When the user clicks the extension, `content.js` adds the `extension-images-blocked` class to the <html> root.
-  These rules below trigger immediately and forcefully wipe elusive visual elements off the screen.
-*/
-html.extension-images-blocked img,               /* Standard images */
-html.extension-images-blocked picture,           /* Modern responsive picture elements */
-html.extension-images-blocked video,             /* Videos acting as GIFs/Ads */
-html.extension-images-blocked canvas,            /* Canvas elements (frequently used by aggressive ad networks to draw ads) */
-html.extension-images-blocked svg,               /* Vector graphics and inline SVGs */
-html.extension-images-blocked [style*="background-image"] /* Inline CSS background images */ {
-  
-  /* We use opacity and visibility to hide elements entirely without deleting them from the DOM structure */
+/* Targeted Video Player Iframe Hiding */
+html.extension-images-blocked iframe[src*="youtube.com"],
+html.extension-images-blocked iframe[src*="youtube-nocookie.com"],
+html.extension-images-blocked iframe[src*="vimeo.com"],
+html.extension-images-blocked iframe[src*="dailymotion.com"],
+html.extension-images-blocked iframe[allow*="autoplay"], /* Broad catch for video ads */
+
+/* Site-Specific News Video Components (like The Guardian) */
+html.extension-images-blocked gu-island[name*="Video"],
+html.extension-images-blocked gu-island[name*="Youtube"],
+html.extension-images-blocked .youtube-media-atom,
+html.extension-images-blocked [class*="video-container"],
+html.extension-images-blocked [class*="video-player"] {
   opacity: 0 !important;
   visibility: hidden !important;
+  pointer-events: none !important;
 }

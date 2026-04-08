@@ -8,7 +8,8 @@ A lightweight modern Firefox extension built using Manifest V3 that allows you t
 - **Visual indicators:** The extension icon automatically changes visually (adding a red slash) so you know at a glance if images are being blocked or allowed.
 - **Deep Network Blocking:** Built with the performant `declarativeNetRequest` API. When toggled, network requests for images, media, and external objects are instantly dropped, saving you real bandwidth.
 - **Aggressive Visual Hiding:** Stops sneaky ads (like those loaded via `<canvas>`, inline `<svg>` elements, and background CSS) by dynamically injecting visual hiding rules to ensure visually "image-like" assets on the screen are hidden alongside the network block.
-- **Active Video Pausing & Iframe Penetration:** The extension actively pierces into embedded `iframes` (very common for news site ads) to find playing videos or media elements and physically forces them to pause while rendering them invisible.
+- **Active Media Suppression & Shadow DOM Piercing:** The extension aggressively hunts down playing videos by piercing into hidden `Shadow DOM` structures and embedded `iframes` (common on news sites like The Guardian). It forcefully silences audio, strips autoplay, and halts the video.
+- **Player UI Blackouts:** It detects when it's running inside third-party video players (like YouTube or Vimeo embeds) and permanently blinds the entire iframe document, destroying annoying video thumbnails and play button interfaces alongside the video itself.
 - **Layout Preservation:** Utilizes a neat CSS trick targeting Firefox's `:-moz-broken` pseudo-class. Images that fail to load due to the extension won't display annoying broken image borders or icons, but their original layout space remains perfectly intact.
 - **Persistence:** The setting is saved and persists even if you restart your browser.
 

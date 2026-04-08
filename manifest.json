@@ -21,5 +21,11 @@
   "icons": {
     "48": "icon-on.svg",
     "96": "icon-on.svg"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["content.css"]
+    }
+  ]
 }

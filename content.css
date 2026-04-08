@@ -1,0 +1,9 @@
+/* Hide the broken image icon and border, but preserve layout (takes up the same space) */
+img:-moz-broken {
+  opacity: 0 !important;
+}
+
+/* Fallback for general visual cleanliness on broken images */
+img {
+  color: transparent !important; /* Hides standard alt-text rendering of broken images */
+}

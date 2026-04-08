@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Image Toggle",
+  "version": "1.0",
+  "description": "Toggle image loading on and off with a simple click.",
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "action": {
+    "default_icon": "icon-on.svg",
+    "default_title": "Image loading is ON (Click to toggle)"
+  },
+  "icons": {
+    "48": "icon-on.svg",
+    "96": "icon-on.svg"
+  }
+}

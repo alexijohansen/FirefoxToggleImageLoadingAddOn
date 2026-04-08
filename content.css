@@ -1,20 +1,38 @@
-/* Firefox specific pseudo-class to hide broken image borders while preserving layout */
+/* 
+  content.css is injected into every webpage.
+  It works in tandem with content.js to apply dynamic visual hiding and sanitize broken images.
+*/
+
+/* 
+  --- LAYOUT PRESERVATION FIX ---
+  Firefox specific pseudo-class to target images that were successfully intercepted and blocked 
+  by our network rule in background.js. 
+  Instead of shrinking the DOM elements and causing the whole page layout to shift erratically, 
+  we just make the broken image invisible (`opacity: 0`). The empty space is preserved!
+*/
 img:-moz-broken {
   opacity: 0 !important;
 }
 
-/* Base fallback for transparent alt text */
+/* Fallback: Makes standard broken image alt-text transparent so you don't see ugly text snippets */
 img {
   color: transparent !important; 
 }
 
-/* AGGRESSIVE VISUAL HIDING when the extension is toggled ON */
-html.extension-images-blocked img,
-html.extension-images-blocked picture,
-html.extension-images-blocked video,
-html.extension-images-blocked canvas,
-html.extension-images-blocked svg,
-html.extension-images-blocked [style*="background-image"] {
+
+/* 
+  --- AGGRESSIVE VISUAL HIDING ---
+  When the user clicks the extension, `content.js` adds the `extension-images-blocked` class to the <html> root.
+  These rules below trigger immediately and forcefully wipe elusive visual elements off the screen.
+*/
+html.extension-images-blocked img,               /* Standard images */
+html.extension-images-blocked picture,           /* Modern responsive picture elements */
+html.extension-images-blocked video,             /* Videos acting as GIFs/Ads */
+html.extension-images-blocked canvas,            /* Canvas elements (frequently used by aggressive ad networks to draw ads) */
+html.extension-images-blocked svg,               /* Vector graphics and inline SVGs */
+html.extension-images-blocked [style*="background-image"] /* Inline CSS background images */ {
+  
+  /* We use opacity and visibility to hide elements entirely without deleting them from the DOM structure */
   opacity: 0 !important;
   visibility: hidden !important;
 }

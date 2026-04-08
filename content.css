@@ -1,9 +1,20 @@
-/* Hide the broken image icon and border, but preserve layout (takes up the same space) */
+/* Firefox specific pseudo-class to hide broken image borders while preserving layout */
 img:-moz-broken {
   opacity: 0 !important;
 }
 
-/* Fallback for general visual cleanliness on broken images */
+/* Base fallback for transparent alt text */
 img {
-  color: transparent !important; /* Hides standard alt-text rendering of broken images */
+  color: transparent !important; 
+}
+
+/* AGGRESSIVE VISUAL HIDING when the extension is toggled ON */
+html.extension-images-blocked img,
+html.extension-images-blocked picture,
+html.extension-images-blocked video,
+html.extension-images-blocked canvas,
+html.extension-images-blocked svg,
+html.extension-images-blocked [style*="background-image"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
 }

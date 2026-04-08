@@ -6,7 +6,7 @@ const blockRule = {
   priority: 1,
   action: { type: "block" },
   condition: {
-    resourceTypes: ["image", "imageset"]
+    resourceTypes: ["image", "imageset", "media", "object"]
   }
 };
 
@@ -50,6 +50,14 @@ async function toggleImages() {
   }
   
   updateIcon();
+
+  // Broadcast toggle state to all open tabs for real-time visual CSS hiding
+  const tabs = await browser.tabs.query({});
+  for (let tab of tabs) {
+    browser.tabs.sendMessage(tab.id, { imagesBlocked: imagesBlocked }).catch(() => {
+      // Ignore errors for tabs without content scripts
+    });
+  }
 }
 
 // Listen for clicks on the extension icon
